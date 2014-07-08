@@ -4,11 +4,13 @@
 
 @class
   SPTExample
+, SPTXCTestCase
 ;
 
 @interface SPTExampleGroup : NSObject
 
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) SPTXCTestCase *testCase;
 @property (nonatomic, strong) SPTExampleGroup *root;
 @property (nonatomic, strong) SPTExampleGroup *parent;
 @property (nonatomic, strong) NSMutableArray *children;

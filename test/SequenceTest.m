@@ -17,6 +17,25 @@ static NSMutableArray *sequence = nil;
 
 @end
 
+@interface SequenceTestCase : SPTXCTestCase
+
+@end
+
+@implementation SequenceTestCase
+
+- (void)spt_beforeEach {
+  [sequence addObject:@"-spt_beforeEach"];
+}
+
+- (void)spt_afterEach {
+  [sequence addObject:@"-spt_afterEach"];
+}
+
+@end
+
+#undef SPT_SUBCLASS
+#define SPT_SUBCLASS SequenceTestCase
+
 SpecBegin(_SequenceTest)
 
 describe(@"root", ^{
@@ -87,6 +106,7 @@ SpecEnd
   assertSequence(i, @"/foo/bar/beforeAll");
 
   // /foo/bar/example1
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/foo/beforeEach");
@@ -96,8 +116,10 @@ SpecEnd
   assertSequence(i, @"/foo/afterEach");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
 
   // /foo/bar/example2
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/foo/beforeEach");
@@ -107,10 +129,12 @@ SpecEnd
   assertSequence(i, @"/foo/afterEach");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   assertSequence(i, @"/foo/bar/afterAll");
 
   // /foo/baz
   // /foo/baz/example1
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/foo/beforeEach");
@@ -120,7 +144,9 @@ SpecEnd
   assertSequence(i, @"/foo/afterEach");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   // /foo/baz/example2
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/foo/beforeEach");
@@ -130,7 +156,9 @@ SpecEnd
   assertSequence(i, @"/foo/afterEach");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   // /foo/example1
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/foo/beforeEach");
@@ -138,7 +166,9 @@ SpecEnd
   assertSequence(i, @"/foo/afterEach");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   // /foo/example2
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/foo/beforeEach");
@@ -146,31 +176,40 @@ SpecEnd
   assertSequence(i, @"/foo/afterEach");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   assertSequence(i, @"/foo/afterAll");
   // /example1
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/example1");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   // /example2
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/example2");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   // /example3
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/example3");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   // /example4
+  assertSequence(i, @"-spt_beforeEach");
   assertSequence(i, @"+beforeEach");
   assertSequence(i, @"/beforeEach");
   assertSequence(i, @"/example4");
   assertSequence(i, @"/afterEach");
   assertSequence(i, @"+afterEach");
+  assertSequence(i, @"-spt_afterEach");
   assertSequence(i, @"/afterAll");
 }
 

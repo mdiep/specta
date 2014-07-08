@@ -24,4 +24,7 @@
 - (void)spt_runExampleAtIndex:(NSUInteger)index;
 - (SPTExample *)spt_getCurrentExample;
 
+- (void)spt_beforeEach;
+- (void)spt_afterEach;
+
 @end

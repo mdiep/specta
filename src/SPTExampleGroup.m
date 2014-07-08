@@ -132,6 +132,8 @@ static void runExampleBlock(id block, NSString *name) {
 - (SPTExampleGroup *)addExampleGroupWithName:(NSString *)name  focused:(BOOL)focused {
   SPTExampleGroup *group = [[SPTExampleGroup alloc] initWithName:name parent:self root:self.root];
   group.focused = focused;
+  SPTSpec *spec = [[NSThread currentThread] threadDictionary][SPTCurrentSpecKey];
+  group.testCase = spec.testCase;
   [self.children addObject:group];
   return group;
 }
@@ -253,6 +255,7 @@ static void runExampleBlock(id block, NSString *name) {
   }
 
   // run beforeEach hooks
+  [self.testCase spt_beforeEach];
   [self runGlobalBeforeEachHooks:compiledName];
   for(group in groups) {
     for(id beforeEachBlock in group.beforeEachArray) {
@@ -275,6 +278,7 @@ static void runExampleBlock(id block, NSString *name) {
     }
   }
   [self runGlobalAfterEachHooks:compiledName];
+  [self.testCase spt_afterEach];
 
   // run afterAll hooks
   for(group in groups) {

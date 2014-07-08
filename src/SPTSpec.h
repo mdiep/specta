@@ -3,10 +3,12 @@
 @class
   SPTExample
 , SPTExampleGroup
+, SPTXCTestCase
 ;
 
 @interface SPTSpec : NSObject
 
+@property (nonatomic, strong) SPTXCTestCase *testCase;
 @property (nonatomic, strong) SPTExampleGroup *rootGroup;
 @property (nonatomic, strong) NSMutableArray *groupStack;
 @property (nonatomic, strong) NSArray *compiledExamples;

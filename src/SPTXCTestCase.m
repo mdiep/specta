@@ -77,6 +77,7 @@
   SPTSpec *spec = [[self class] spt_spec];
   spec.fileName = @(fileName);
   spec.lineNumber = lineNumber;
+  spec.testCase = self;
   [[NSThread currentThread] threadDictionary][SPTCurrentSpecKey] = spec;
 }
 
@@ -108,6 +109,12 @@
   NSUInteger i;
   [self.spt_invocation getArgument:&i atIndex:2];
   return ([[self class] spt_spec].compiledExamples)[i];
+}
+
+- (void)spt_beforeEach {
+}
+
+- (void)spt_afterEach {
 }
 
 #pragma mark - XCTestCase overrides
